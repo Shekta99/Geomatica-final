@@ -27,6 +27,7 @@
         "esri/widgets/Legend",
         "esri/widgets/Search",
         "esri/widgets/Locate",
+        "esri/widgets/LayerList",
       ], function (
         esriConfig,
         WebMap,
@@ -34,7 +35,8 @@
         ScaleBar,
         Legend,
         Search,
-        Locate
+        Locate,
+        LayerList
       ) {
         esriConfig.apiKey =
           "AAPK4f18451e0d3b4afeb3f90223cc9fc48fcNi4oR3IWuK59Nyb9a7PMLGhhMEcqKuOLWtOzsXfGntnxbCcUNco1cC2BNYFVsSB";
@@ -54,6 +56,13 @@
           view: view,
         });
         view.ui.add(search, "top-right");
+        let layerList = new LayerList({
+          view: view,
+        });
+        // Adds widget below other elements in the top left corner of the view
+        view.ui.add(layerList, {
+          position: "top-left",
+        });
         const locate = new Locate({
           view: view,
           useHeadingEnabled: false,
