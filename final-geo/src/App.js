@@ -1,7 +1,7 @@
 import "./App.css";
 
 function App() {
-  return <div>hola</div>;
+  return <div id="mapView"></div>;
 }
 
 export default App;
