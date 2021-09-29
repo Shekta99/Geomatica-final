@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Arcgis JS API</title>
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.20/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.20/"></script>
+    <script>
+      require([
+        "esri/config",
+        "esri/WebMap",
+        "esri/views/MapView",
+        "esri/widgets/ScaleBar",
+        "esri/widgets/Legend",
+        "esri/widgets/Search",
+        "esri/widgets/Locate",
+      ], function (
+        esriConfig,
+        WebMap,
+        MapView,
+        ScaleBar,
+        Legend,
+        Search,
+        Locate
+      ) {
+        esriConfig.apiKey =
+          "AAPK4f18451e0d3b4afeb3f90223cc9fc48fcNi4oR3IWuK59Nyb9a7PMLGhhMEcqKuOLWtOzsXfGntnxbCcUNco1cC2BNYFVsSB";
+        esriConfig.portalUrl = "https://udistritalfjc.maps.arcgis.com/";
+        const webmap = new WebMap({
+          portalItem: {
+            id: "dac4b1f85da74231b2558e32523a0b68",
+          },
+        });
+        const view = new MapView({
+          map: webmap,
+          zoom: 11,
+          container: "viewDiv", // Div element
+        });
+        const search = new Search({
+          //Add Search widget
+          view: view,
+        });
+        view.ui.add(search, "top-right");
+        const locate = new Locate({
+          view: view,
+          useHeadingEnabled: false,
+          goToOverride: function (view, options) {
+            options.target.scale = 1500;
+            return view.goTo(options.target);
+          },
+        });
+        view.ui.add(locate, "top-left");
+        const scalebar = new ScaleBar({
+          view: view,
+        });
+        view.ui.add(scalebar, "bottom-left");
+        const legend = new Legend({
+          view: view,
+        });
+        view.ui.add(legend, "top-right");
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>
